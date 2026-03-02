@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rsasaki0109.jp | 自己紹介</title>
+    <meta
+      name="description"
+      content="Localization and Mapping Engineer (MAP IV/TIER IV) の自己紹介ページ。XとGitHubの本アカウント情報を反映。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+JP:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="data/tweets.js"></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <div class="noise"></div>
+    <header class="site-header">
+      <div class="brand">RSasaki0109</div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#profile">Profile</a>
+        <a href="#projects">Projects</a>
+        <a href="#tweets">Tweets</a>
+        <a href="#social">SNS</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">自己紹介</p>
+        <h1>
+          はじめまして、<br />
+          MAP IVで<br />
+          Localization & Mappingに取り組む<br />
+          開発者です
+        </h1>
+        <p class="sub">
+          rsasaki0109.jp は、私の経歴・技術関心・開発実績を短くまとめる自己紹介ページです。  
+          興味分野は、GNSS、LiDAR、IMU、SLAM、ロボティクス、Localization / Mappingです。
+        </p>
+        <div class="cta-group">
+          <a class="btn primary" href="#profile">プロフィールを見る</a>
+          <a class="btn ghost" href="#tweets">最新ツイートを見る</a>
+          <a class="btn ghost" href="#social">SNSを見る</a>
+        </div>
+        <div class="stat-grid" aria-label="stats">
+          <article>
+            <span class="value" id="gh-repos">44</span>
+            <span class="label">GitHub公開リポジトリ</span>
+          </article>
+          <article>
+            <span class="value" id="gh-followers">622</span>
+            <span class="label">GitHubフォロワー</span>
+          </article>
+          <article>
+            <span class="value" id="x-followers">8,490</span>
+            <span class="label">Xフォロワー</span>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="panel">
+        <h2>About</h2>
+        <p>
+          2026年時点で Localization and Mapping Engineer として、ロボティクス関連技術を中心に開発しています。  
+          興味は、GNSS/IMU/LiDAR融合、自己位置推定、SLAM、ロボット制御やROS 2での実装です。  
+          まずは再現性の高い実装を優先し、実運用で使えるソリューションを志向しています。
+        </p>
+      </section>
+
+      <section id="profile" class="panel">
+        <h2>Profile</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>名前</h3>
+            <p>rsasaki0109</p>
+          </article>
+          <article class="card">
+            <h3>所属 / 役職</h3>
+            <p>Localization and Mapping Engineer at MAP IV（TIER IV group）</p>
+          </article>
+          <article class="card">
+            <h3>拠点</h3>
+            <p>Nagoya, Japan</p>
+          </article>
+          <article class="card">
+            <h3>得意領域</h3>
+            <p>GNSS, LiDAR, IMU, SLAM, Robotics, Localization, Mapping</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects" class="panel">
+        <h2>Projects</h2>
+        <p class="muted">GitHub公開実績（スター数順）</p>
+        <div id="project-list" class="grid">
+          <article class="card project-card" aria-live="polite">
+            <p class="muted">最新リポジトリを取得中...</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="tweets" class="panel">
+        <h2>Recent Tweets</h2>
+        <p class="muted">
+          画像付き投稿や返信も含めた最新ツイート（X）を自動表示します。
+        </p>
+        <div class="twitter-frame">
+          <a
+            class="twitter-timeline"
+            href="https://twitter.com/rsasaki0109"
+            data-height="560"
+            data-theme="dark"
+            data-chrome="noheader nofooter"
+            data-lang="ja"
+            id="twitter-timeline"
+          >
+            Tweets by @rsasaki0109
+          </a>
+        </div>
+        <div id="tweet-fallback" class="tweet-fallback visible" aria-live="polite">
+          <h3>最新投稿（更新: <span id="tweets-updated">--</span>）</h3>
+          <div id="tweet-cards" class="grid"></div>
+        </div>
+        <p class="notice">表示が遅い場合は <a href="https://x.com/rsasaki0109" target="_blank" rel="noopener noreferrer">Xのプロフィール</a> を直接開いて確認してください。</p>
+      </section>
+
+      <section id="social" class="panel">
+        <h2>SNS / Contact</h2>
+        <div class="social-grid">
+          <a
+            class="social-card"
+            href="https://x.com/rsasaki0109"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X (Twitter) profile"
+          >
+            <h3>X（旧Twitter）</h3>
+            <p>@rsasaki0109</p>
+            <p class="meta">8,490 Follower / 2,566 posts</p>
+            <p class="muted">画像付き投稿・議論の傾向を確認できます。</p>
+          </a>
+          <a
+            class="social-card"
+            href="https://github.com/rsasaki0109"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub profile"
+          >
+            <h3>GitHub</h3>
+            <p>github.com/rsasaki0109</p>
+            <p class="meta">公開リポジトリ 44 / フォロワー 622 / フォロー中 7</p>
+          </a>
+        </div>
+        <p class="notice">最終更新: 2026-03-03（GitHub API / X公開情報）</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> rsasaki0109.jp</p>
+    </footer>
+
+    <script>
+      window.addEventListener("load", () => {
+        const twitterScript = document.createElement("script");
+        twitterScript.async = true;
+        twitterScript.src = "https://platform.x.com/widgets.js";
+        twitterScript.charset = "utf-8";
+        twitterScript.crossOrigin = "anonymous";
+        twitterScript.onerror = () => {
+          const fallback = document.querySelector("#tweet-fallback");
+          if (fallback) fallback.classList.add("visible");
+        };
+        document.body.appendChild(twitterScript);
+      });
+    </script>
+  </body>
+</html>
