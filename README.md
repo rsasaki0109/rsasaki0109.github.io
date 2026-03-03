@@ -1,4 +1,4 @@
-# rsasaki0109.jp
+# rsasaki0109.github.io
 
 このリポジトリは `rsasaki0109` の自己紹介ページです。
 
@@ -10,8 +10,8 @@
 
 1. このフォルダを Git リポジトリに配置し、`main` ブランチへ Push
 2. GitHub で Settings → Pages を開き、Source を `GitHub Actions` に設定
-3. DNS で `rsasaki0109.jp`（と必要なら `www.rsasaki0109.jp`）を Pages のIPへ向ける
-4. `CNAME` を置いてあるため、デフォルトで `rsasaki0109.jp` で公開されます
+3. 必要なら、カスタムドメインを DNS で設定して独自ドメインへ向ける
+4. 現在は `https://rsasaki0109.github.io/` で公開しています
 
 ## ローカル確認
 
