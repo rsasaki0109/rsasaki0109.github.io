@@ -5,6 +5,36 @@ document.addEventListener("DOMContentLoaded", () => {
     yearElement.textContent = String(year);
   }
 
+  const pageLocale = ((window.__PAGE_LOCALE__ || (document.documentElement && document.documentElement.lang) || "ja").toString() || "ja").toLowerCase();
+  const LOCALE = pageLocale.startsWith("en") ? "en" : "ja";
+  const i18n = {
+    ja: {
+      projectLoading: "最新リポジトリを取得中...",
+      projectLoadError: "GitHubリポジトリを取得できませんでした。時間をおいて再読み込みしてください。",
+      projectNotFound: "公開リポジトリが見つかりませんでした。",
+      noPostsTitle: "投稿なし",
+      noPostsText: "投稿情報を取得できませんでした。時間をおいて再取得してください。",
+      unavailable: "未取得",
+      unavailableText: "データ取得に失敗しました。少し時間をおいて再読み込みしてください。",
+      githubError: "error",
+      videoUnsupported:
+        "お使いのブラウザは動画/GIFの再生に対応していません。投稿を開いて確認してください。",
+    },
+    en: {
+      projectLoading: "Loading recent repositories...",
+      projectLoadError: "Failed to load GitHub repositories. Please refresh again later.",
+      projectNotFound: "No public repositories found.",
+      noPostsTitle: "No posts",
+      noPostsText: "Failed to load posts. Please refresh again later.",
+      unavailable: "Unavailable",
+      unavailableText: "Failed to load data. Please refresh again later.",
+      githubError: "error",
+      videoUnsupported:
+        "Your browser does not support inline video/GIF playback. Open the post directly.",
+    },
+  };
+  const t = (key) => i18n[LOCALE][key] || i18n.ja[key] || key;
+
   const setText = (selector, value) => {
     const node = document.querySelector(selector);
     if (node) node.textContent = value;
@@ -17,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const toText = (value) => {
     if (typeof value === "number") {
-      return value.toLocaleString("ja-JP");
+      return value.toLocaleString(LOCALE === "en" ? "en-US" : "ja-JP");
     }
     return value || "-";
   };
@@ -136,12 +166,38 @@ document.addEventListener("DOMContentLoaded", () => {
     </article>
   `;
 
+  const tweetMedia = (tweet) => {
+    const link = tweet.url || "#";
+    const media = tweet.media || {};
+    const type = String(media.type || "").toLowerCase();
+    const src = media.url || "";
+    const poster = media.poster || tweet.image || "";
+    const contentType = media.content_type || "video/mp4";
+
+    if (["video", "gif", "animated_gif"].includes(type) && src) {
+      return `<video controls playsinline preload="metadata" class="tweet-video" poster="${poster}">
+        <source src="${src}" type="${contentType}" />
+        ${t("videoUnsupported")}
+      </video>`;
+    }
+
+    if (["photo", "image"].includes(type) && src) {
+      return `<a href="${link}" target="_blank" rel="noopener noreferrer"><img src="${src}" alt="${tweet.text}" loading="lazy" /></a>`;
+    }
+
+    if (tweet.image) {
+      return `<a href="${link}" target="_blank" rel="noopener noreferrer"><img src="${tweet.image}" alt="${tweet.text}" loading="lazy" /></a>`;
+    }
+
+    return "";
+  };
+
   const tweetCard = (tweet) => `
     <article class="tweet-card">
       <p class="tweet-meta">${tweet.date}</p>
       <h3><a href="${tweet.url}" target="_blank" rel="noopener noreferrer">${tweet.text}</a></h3>
       <p>${tweet.desc}</p>
-      ${tweet.image ? `<a href="${tweet.url}" target="_blank" rel="noopener noreferrer"><img src="${tweet.image}" alt="${tweet.text}" loading="lazy" /></a>` : ""}
+      ${tweetMedia(tweet)}
     </article>
   `;
 
@@ -154,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTextById("tweets-updated", displayUpdated);
     if (!records.length) {
       list.innerHTML =
-        '<article class="tweet-card"><p class="tweet-meta">投稿なし</p><p>投稿情報を取得できませんでした。時間をおいて再取得してください。</p></article>';
+        `<article class="tweet-card"><p class="tweet-meta">${t("noPostsTitle")}</p><p>${t("noPostsText")}</p></article>`;
       return;
     }
     list.innerHTML = records
@@ -186,13 +242,13 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     fallbackContainer.innerHTML =
-      nodes.join("") || '<article class="card project-card"><p class="muted">公開リポジトリが見つかりませんでした。</p></article>';
+    nodes.join("") || `<article class="card project-card"><p class="muted">${t("projectNotFound")}</p></article>`;
   };
 
   const loadProjects = (repos, list) => {
     renderProjects(repos, list).catch(() => {
       list.innerHTML =
-        '<article class="card project-card"><p class="muted">GitHubリポジトリを取得できませんでした。時間をおいて再読み込みしてください。</p></article>';
+        `<article class="card project-card"><p class="muted">${t("projectLoadError")}</p></article>`;
     });
   };
 
@@ -203,8 +259,8 @@ document.addEventListener("DOMContentLoaded", () => {
       setText("#gh-followers", toText(userData.followers));
     })
     .catch(() => {
-      setText("#gh-repos", "error");
-      setText("#gh-followers", "error");
+      setText("#gh-repos", t("githubError"));
+      setText("#gh-followers", t("githubError"));
     });
 
   fetch(reposApi)
@@ -219,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const list = document.querySelector("#project-list");
       if (list) {
         list.innerHTML =
-          '<article class="card project-card"><p class="muted">GitHubリポジトリを取得できませんでした。時間をおいて再読み込みしてください。</p></article>';
+          `<article class="card project-card"><p class="muted">${t("projectLoadError")}</p></article>`;
       }
     });
 
@@ -244,7 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         list.innerHTML =
-          '<article class="tweet-card"><p class="tweet-meta">未取得</p><p>データ取得に失敗しました。少し時間をおいて再読み込みしてください。</p></article>';
+          `<article class="tweet-card"><p class="tweet-meta">${t("unavailable")}</p><p>${t("unavailableText")}</p></article>`;
       }
     });
 });

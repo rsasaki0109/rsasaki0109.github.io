@@ -33,8 +33,20 @@ def _to_readable_date(raw_date):
     return parsed.strftime("%Y-%m-%d")
 
 
+def _parse_for_sort(raw_date):
+    try:
+        return dt.datetime.strptime(raw_date, "%b %d, %Y")
+    except ValueError:
+        try:
+            return dt.datetime.strptime(raw_date, "%Y-%m-%d")
+        except ValueError:
+            return dt.datetime.min
+
+
 def _clean(text):
+    text = re.sub(r"!\[[^\]]*\]\([^)]+\)", "", text)
     text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
+    text = re.sub(r"\[\]\([^)]+\)", "", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
@@ -45,6 +57,93 @@ def _shorten(text, limit=120):
     return f"{text[: limit - 1].rstrip()}…"
 
 
+def _extract_tweet_id(url):
+    match = re.search(r"/status/([0-9]+)", url)
+    if match:
+        return match.group(1)
+    return ""
+
+
+def _pick_best_mp4(formats):
+    candidates = []
+    for item in formats:
+        if not isinstance(item, dict):
+            continue
+
+        media_url = item.get("url")
+        if not media_url:
+            continue
+
+        if any(ext in media_url for ext in [".m3u8", ".m3u"]):
+            continue
+
+        container = item.get("container")
+        content_type = item.get("content_type") or ""
+        if container == "mp4" or "video/mp4" in content_type or media_url.endswith(".mp4"):
+            bitrate = item.get("bitrate", 0) or 0
+            candidates.append((bitrate, media_url))
+
+    if candidates:
+        return max(candidates, key=lambda value: value[0])[1]
+
+    return ""
+
+
+def _build_media_payload(tweet_url):
+    tweet_id = _extract_tweet_id(tweet_url)
+    if not tweet_id:
+        return None
+
+    endpoint = f"https://api.fxtwitter.com/i/status/{tweet_id}"
+    request = urllib.request.Request(
+        endpoint,
+        headers={
+            "User-Agent": "Mozilla/5.0 (compatible; rsasaki0109-page-updater/1.0)",
+            "Accept": "application/json",
+        },
+    )
+
+    with urllib.request.urlopen(request, timeout=20) as response:
+        payload = json.loads(response.read().decode("utf-8", errors="ignore"))
+
+    media_data = payload.get("tweet", {}).get("media")
+    if not isinstance(media_data, dict):
+        return None
+
+    items = media_data.get("all")
+    if not isinstance(items, list):
+        return None
+
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+
+        media_type = (item.get("type") or "").lower()
+        if media_type in {"video", "animated_gif", "gif"}:
+            source = _pick_best_mp4(item.get("formats") or item.get("variants") or [])
+            if not source:
+                source = item.get("url") if item.get("url", "").endswith(".mp4") else ""
+            if source:
+                return {
+                    "type": media_type if media_type != "animated_gif" else "gif",
+                    "url": source,
+                    "poster": item.get("thumbnail_url", ""),
+                    "duration": item.get("duration"),
+                    "content_type": "video/mp4",
+                }
+
+        if media_type in {"photo", "image"}:
+            url = item.get("url") or item.get("thumbnail_url", "")
+            if url:
+                return {
+                    "type": "image",
+                    "url": url,
+                    "poster": "",
+                }
+
+    return None
+
+
 def _parse_posts(markdown):
     date_pattern = re.compile(
         rf"\[(?P<date>[A-Za-z]{{3}} \d{{1,2}}, \d{{4}})\]\((?P<url>https?://(?:x|twitter)\.com/{USERNAME}/status/\d+)\)"
@@ -53,6 +152,7 @@ def _parse_posts(markdown):
     posts = []
 
     for i, current in enumerate(matches[:MAX_POSTS]):
+        sortable_date = _parse_for_sort(current.group("date"))
         start = current.end()
         end = matches[i + 1].start() if i + 1 < len(matches) else len(markdown)
         block = markdown[start:end]
@@ -105,17 +205,28 @@ def _parse_posts(markdown):
         if not description:
             continue
 
+        try:
+            media = _build_media_payload(current.group("url"))
+        except Exception:
+            media = None
+        if media is None and image:
+            media = {"type": "image", "url": image, "poster": ""}
+
         posts.append(
-            {
-                "url": current.group("url"),
-                "date": _to_readable_date(current.group("date")),
-                "text": _shorten(description, 52),
-                "desc": _shorten(description, 220),
-                "image": image,
-            }
+            (
+                sortable_date,
+                {
+                    "url": current.group("url"),
+                    "date": _to_readable_date(current.group("date")),
+                    "text": _shorten(description, 52),
+                    "desc": _shorten(description, 220),
+                    "image": image,
+                    "media": media,
+                }
+            )
         )
 
-    return posts
+    return [post for _, post in sorted(posts, key=lambda item: item[0], reverse=True)]
 
 
 def _load_existing():
