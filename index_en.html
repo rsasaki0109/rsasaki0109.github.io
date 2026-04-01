@@ -27,6 +27,7 @@
       <div class="brand">RSasaki0109</div>
       <nav>
         <a href="#profile">Profile</a>
+        <a href="#cloudanalyzer">CloudAnalyzer</a>
         <a href="#projects">Projects</a>
         <a href="#tweets">Tweets</a>
         <a href="#social">Contact</a>
@@ -80,6 +81,7 @@
         </p>
         <div class="cta-group">
           <a class="btn primary" href="#profile">View profile</a>
+          <a class="btn ghost" href="cloudanalyzer/">Open CloudAnalyzer demo</a>
           <a class="btn ghost" href="#projects">View GitHub projects</a>
           <a class="btn ghost" href="#tweets">View popular tweets</a>
           <a class="btn ghost" href="#social">Visit SNS</a>
@@ -115,6 +117,36 @@
             <h3>Expertise</h3>
             <p>GNSS, LiDAR, IMU, SLAM, Robotics, Localization, Mapping</p>
           </article>
+        </div>
+      </section>
+
+      <section id="cloudanalyzer" class="panel">
+        <h2>CloudAnalyzer</h2>
+        <p class="muted">
+          A CLI and browser viewer for localization / mapping / perception post-processing and QA.
+          It bundles map comparison, trajectory overlays, browser inspection, and a public Pages demo.
+        </p>
+        <div class="grid">
+          <article class="card">
+            <h3>Use cases</h3>
+            <p>
+              Compare post-processed maps, evaluate runs with trajectories, gate point cloud quality,
+              and benchmark geometry regressions from perception-oriented pipelines.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Public demo</h3>
+            <p>
+              The static demo uses the public Stanford Bunny dataset and runs entirely on GitHub Pages.
+            </p>
+            <p class="muted">
+              Heatmap inspection, progressive loading, point picking, and trajectory timelines stay active in-browser.
+            </p>
+          </article>
+        </div>
+        <div class="cta-group">
+          <a class="btn primary" href="cloudanalyzer/">CloudAnalyzer Demo</a>
+          <a class="btn ghost" href="https://github.com/rsasaki0109/CloudAnalyzer" target="_blank" rel="noopener noreferrer">CloudAnalyzer Repo</a>
         </div>
       </section>
 
