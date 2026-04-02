@@ -27,6 +27,7 @@
       <div class="brand">RSasaki0109</div>
       <nav>
         <a href="#profile">Profile</a>
+        <a href="#cloudanalyzer">CloudAnalyzer</a>
         <a href="#projects">Projects</a>
         <a href="#tweets">Tweets</a>
         <a href="#social">SNS</a>
@@ -80,6 +81,7 @@
         </p>
         <div class="cta-group">
           <a class="btn primary" href="#profile">プロフィールを見る</a>
+          <a class="btn ghost" href="cloudanalyzer/">CloudAnalyzer Demoを見る</a>
           <a class="btn ghost" href="#projects">GitHub Projectsを見る</a>
           <a class="btn ghost" href="#tweets">人気ツイートを見る</a>
           <a class="btn ghost" href="#social">SNSを見る</a>
@@ -115,6 +117,36 @@
             <h3>得意領域</h3>
             <p>GNSS, LiDAR, IMU, SLAM, Robotics, Localization, Mapping</p>
           </article>
+        </div>
+      </section>
+
+      <section id="cloudanalyzer" class="panel">
+        <h2>CloudAnalyzer</h2>
+        <p class="muted">
+          Localization / Mapping / Perception の後処理と品質評価をまとめて回すための CLI / Web viewer です。
+          map 比較、trajectory overlay、browser inspection、GitHub Pages demo までまとめて触れます。
+        </p>
+        <div class="grid">
+          <article class="card">
+            <h3>用途</h3>
+            <p>
+              map の after-processing 比較、trajectory つき run evaluation、
+              point cloud quality gate、perception 系の geometry regression を 1 つの流れで扱います。
+            </p>
+          </article>
+          <article class="card">
+            <h3>Public Demo</h3>
+            <p>
+              公開データの Stanford Bunny を使った static demo を GitHub Pages 配下に置いています。
+            </p>
+            <p class="muted">
+              heatmap、progressive loading、point picking、trajectory timeline をブラウザだけで確認できます。
+            </p>
+          </article>
+        </div>
+        <div class="cta-group">
+          <a class="btn primary" href="cloudanalyzer/">CloudAnalyzer Demo</a>
+          <a class="btn ghost" href="https://github.com/rsasaki0109/CloudAnalyzer" target="_blank" rel="noopener noreferrer">CloudAnalyzer Repo</a>
         </div>
       </section>
 
