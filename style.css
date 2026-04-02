@@ -451,6 +451,30 @@ h2 {
   text-decoration-color: var(--accent);
 }
 
+.tweet-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.tweet-stat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.28rem;
+  padding: 0.28rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.tweet-stat strong {
+  color: var(--text);
+  font-family: "Space Grotesk", "Noto Sans JP", sans-serif;
+  font-size: 0.9rem;
+}
+
 .tweet-meta {
   font-size: 0.86rem;
   color: var(--muted);

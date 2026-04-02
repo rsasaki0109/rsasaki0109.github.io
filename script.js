@@ -21,6 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
       unavailable: "未取得",
       unavailableText: "データ取得に失敗しました。少し時間をおいて再読み込みしてください。",
       githubError: "error",
+      likes: "いいね",
+      retweets: "リツイート",
+      impressions: "インプレッション",
       videoUnsupported:
         "お使いのブラウザは動画/GIFの再生に対応していません。投稿を開いて確認してください。",
     },
@@ -37,6 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
       unavailable: "Unavailable",
       unavailableText: "Failed to load data. Please refresh again later.",
       githubError: "error",
+      likes: "Likes",
+      retweets: "Retweets",
+      impressions: "Impressions",
       videoUnsupported:
         "Your browser does not support inline video/GIF playback. Open the post directly.",
     },
@@ -58,6 +64,19 @@ document.addEventListener("DOMContentLoaded", () => {
       return value.toLocaleString(LOCALE === "en" ? "en-US" : "ja-JP");
     }
     return value || "-";
+  };
+
+  const formatMetric = (value) => {
+    if (typeof value !== "number" || Number.isNaN(value)) {
+      return "-";
+    }
+    if (value < 1000) {
+      return toText(value);
+    }
+    return new Intl.NumberFormat(LOCALE === "en" ? "en-US" : "ja-JP", {
+      notation: "compact",
+      maximumFractionDigits: 1,
+    }).format(value);
   };
 
   const setFallbackVisibility = (visible) => {
@@ -276,9 +295,28 @@ document.addEventListener("DOMContentLoaded", () => {
       <p class="tweet-meta">${tweet.date}</p>
       <h3><a href="${tweet.url}" target="_blank" rel="noopener noreferrer">${tweet.text}</a></h3>
       <p>${tweet.desc}</p>
+      ${tweetMetrics(tweet)}
       ${tweetMedia(tweet)}
     </article>
   `;
+
+  const tweetMetrics = (tweet) => {
+    const metrics = tweet && tweet.metrics ? tweet.metrics : {};
+    const hasMetrics = ["likes", "retweets", "impressions"].some(
+      (key) => typeof metrics[key] === "number"
+    );
+    if (!hasMetrics) {
+      return "";
+    }
+
+    return `
+      <div class="tweet-stats" aria-label="tweet metrics">
+        <span class="tweet-stat"><strong>${formatMetric(metrics.likes)}</strong> ${t("likes")}</span>
+        <span class="tweet-stat"><strong>${formatMetric(metrics.retweets)}</strong> ${t("retweets")}</span>
+        <span class="tweet-stat"><strong>${formatMetric(metrics.impressions)}</strong> ${t("impressions")}</span>
+      </div>
+    `;
+  };
 
   const loadFallbackTweets = (payload) => {
     const list = document.querySelector("#tweet-cards");

@@ -44,6 +44,7 @@ def _parse_for_sort(raw_date):
 
 
 def _clean(text):
+    text = re.sub(r"\bPCF_LABEL_NONE\b", "", text)
     text = re.sub(r"!\[[^\]]*\]\([^)]+\)", "", text)
     text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
     text = re.sub(r"\[\]\([^)]+\)", "", text)
@@ -62,6 +63,23 @@ def _extract_tweet_id(url):
     if match:
         return match.group(1)
     return ""
+
+
+def _to_int(value):
+    if isinstance(value, bool):
+        return 0
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    if isinstance(value, str):
+        digits = re.sub(r"[^0-9]", "", value)
+        if digits:
+            try:
+                return int(digits)
+            except ValueError:
+                return 0
+    return 0
 
 
 def _pick_best_mp4(formats):
@@ -89,7 +107,18 @@ def _pick_best_mp4(formats):
     return ""
 
 
-def _build_media_payload(tweet_url):
+def _extract_metrics(tweet_payload):
+    if not isinstance(tweet_payload, dict):
+        return {}
+
+    return {
+        "likes": _to_int(tweet_payload.get("likes")),
+        "retweets": _to_int(tweet_payload.get("retweets")),
+        "impressions": _to_int(tweet_payload.get("views")),
+    }
+
+
+def _fetch_tweet_details(tweet_url):
     tweet_id = _extract_tweet_id(tweet_url)
     if not tweet_id:
         return None
@@ -106,13 +135,18 @@ def _build_media_payload(tweet_url):
     with urllib.request.urlopen(request, timeout=20) as response:
         payload = json.loads(response.read().decode("utf-8", errors="ignore"))
 
-    media_data = payload.get("tweet", {}).get("media")
+    tweet_payload = payload.get("tweet", {})
+    media_data = tweet_payload.get("media")
+    details = {
+        "metrics": _extract_metrics(tweet_payload),
+        "media": None,
+    }
     if not isinstance(media_data, dict):
-        return None
+        return details
 
     items = media_data.get("all")
     if not isinstance(items, list):
-        return None
+        return details
 
     for item in items:
         if not isinstance(item, dict):
@@ -124,24 +158,26 @@ def _build_media_payload(tweet_url):
             if not source:
                 source = item.get("url") if item.get("url", "").endswith(".mp4") else ""
             if source:
-                return {
+                details["media"] = {
                     "type": media_type if media_type != "animated_gif" else "gif",
                     "url": source,
                     "poster": item.get("thumbnail_url", ""),
                     "duration": item.get("duration"),
                     "content_type": "video/mp4",
                 }
+                return details
 
         if media_type in {"photo", "image"}:
             url = item.get("url") or item.get("thumbnail_url", "")
             if url:
-                return {
+                details["media"] = {
                     "type": "image",
                     "url": url,
                     "poster": "",
                 }
+                return details
 
-    return None
+    return details
 
 
 def _parse_posts(markdown):
@@ -205,10 +241,15 @@ def _parse_posts(markdown):
         if not description:
             continue
 
+        metrics = {}
         try:
-            media = _build_media_payload(current.group("url"))
+            details = _fetch_tweet_details(current.group("url"))
         except Exception:
-            media = None
+            details = None
+
+        media = details.get("media") if isinstance(details, dict) else None
+        metrics = details.get("metrics") if isinstance(details, dict) else {}
+
         if media is None and image:
             media = {"type": "image", "url": image, "poster": ""}
 
@@ -222,6 +263,7 @@ def _parse_posts(markdown):
                     "desc": _shorten(description, 220),
                     "image": image,
                     "media": media,
+                    "metrics": metrics,
                 }
             )
         )
