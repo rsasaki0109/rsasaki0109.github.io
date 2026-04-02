@@ -9,9 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const LOCALE = pageLocale.startsWith("en") ? "en" : "ja";
   const i18n = {
     ja: {
-      projectLoading: "最新リポジトリを取得中...",
-      projectLoadError: "GitHubリポジトリを取得できませんでした。時間をおいて再読み込みしてください。",
-      projectNotFound: "公開リポジトリが見つかりませんでした。",
+      projectNotFound: "表示できる主要リポジトリがありません。",
+      projectLanguage: "主要言語",
+      projectStars: "スター",
+      projectRepo: "GitHubで開く",
+      languageUnavailable: "未取得",
       noPostsTitle: "投稿なし",
       noPostsText: "投稿情報を取得できませんでした。時間をおいて再取得してください。",
       unavailable: "未取得",
@@ -21,9 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
         "お使いのブラウザは動画/GIFの再生に対応していません。投稿を開いて確認してください。",
     },
     en: {
-      projectLoading: "Loading recent repositories...",
-      projectLoadError: "Failed to load GitHub repositories. Please refresh again later.",
       projectNotFound: "No public repositories found.",
+      projectLanguage: "Primary language",
+      projectStars: "stars",
+      projectRepo: "GitHub Repo",
+      languageUnavailable: "Language N/A",
       noPostsTitle: "No posts",
       noPostsText: "Failed to load posts. Please refresh again later.",
       unavailable: "Unavailable",
@@ -73,96 +77,76 @@ document.addEventListener("DOMContentLoaded", () => {
   const userApi = `https://api.github.com/users/${username}`;
   const reposApi = `${userApi}/repos?per_page=100`;
 
-  const repoStatsImage = (repo) =>
-    `https://github-readme-stats.vercel.app/api/pin/?username=${username}&repo=${encodeURIComponent(
-      repo.name
-    )}&show_owner=true&show_icons=true&theme=transparent&hide_border=true`;
+  const selectedProjects =
+    LOCALE === "en"
+      ? [
+          {
+            name: "lidarslam_ros2",
+            description: "ROS 2 LiDAR SLAM for map authoring and benchmarking.",
+            tags: ["ROS 2", "LiDAR SLAM", "Mapping"],
+          },
+          {
+            name: "lidar_localization_ros2",
+            description: "3D LiDAR localization in ROS 2.",
+            tags: ["ROS 2", "Localization", "LiDAR"],
+          },
+          {
+            name: "kalman_filter_localization_ros2",
+            description: "GNSS/IMU localization with Kalman filtering.",
+            tags: ["GNSS", "IMU", "Kalman Filter"],
+          },
+          {
+            name: "rust_robotics",
+            description: "Robotics algorithms implemented in Rust.",
+            tags: ["Rust", "Robotics", "Algorithms"],
+          },
+          {
+            name: "gnssplusplus-library",
+            description: "Modern C++ GNSS / RTK / PPP / CLAS toolkit.",
+            tags: ["C++", "GNSS", "RTK/PPP/CLAS"],
+          },
+        ]
+      : [
+          {
+            name: "lidarslam_ros2",
+            description: "ROS 2 向けの LiDAR SLAM。地図作成とベンチマーク用途をまとめて扱えます。",
+            tags: ["ROS 2", "LiDAR SLAM", "Mapping"],
+          },
+          {
+            name: "lidar_localization_ros2",
+            description: "ROS 2 向けの 3D LiDAR localization 実装です。",
+            tags: ["ROS 2", "Localization", "LiDAR"],
+          },
+          {
+            name: "kalman_filter_localization_ros2",
+            description: "Kalman filter を使った GNSS / IMU localization 実装です。",
+            tags: ["GNSS", "IMU", "Kalman Filter"],
+          },
+          {
+            name: "rust_robotics",
+            description: "Rust で実装したロボティクス向けアルゴリズム集です。",
+            tags: ["Rust", "Robotics", "Algorithms"],
+          },
+          {
+            name: "gnssplusplus-library",
+            description: "modern C++ による GNSS / RTK / PPP / CLAS toolkit です。",
+            tags: ["C++", "GNSS", "RTK/PPP/CLAS"],
+          },
+        ];
 
-  const normalizeImageUrl = (repoName, branch, rawUrl) => {
-    if (!rawUrl) return "";
-    const trimmed = rawUrl.trim();
-    if (!trimmed) return "";
-
-    if (/^https?:\/\//i.test(trimmed)) {
-      return trimmed;
-    }
-
-    if (trimmed.startsWith("/")) {
-      return `https://raw.githubusercontent.com/${username}/${repoName}/${branch}${trimmed}`;
-    }
-
-    if (trimmed.startsWith("../")) {
-      return `https://raw.githubusercontent.com/${username}/${repoName}/${branch}/${trimmed.replace("../", "")}`;
-    }
-
-    if (trimmed.startsWith("./")) {
-      return `https://raw.githubusercontent.com/${username}/${repoName}/${branch}/${trimmed.slice(2)}`;
-    }
-
-    return `https://raw.githubusercontent.com/${username}/${repoName}/${branch}/${trimmed}`;
-  };
-
-  const findReadmeImage = (text, repoName, branch) => {
-    if (!text) return "";
-    const md = text.match(/!\[[^\]]*?\]\(([^)\s]+)(?:\s+["'][^"']*["'])?\)/);
-    if (md?.[1]) {
-      return normalizeImageUrl(repoName, branch, md[1].trim().replace(/\s+["'][^"']+["']$/, "").trim());
-    }
-
-    const html = text.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
-    if (html?.[1]) {
-      return normalizeImageUrl(repoName, branch, html[1]);
-    }
-
-    return "";
-  };
-
-  const pickReadmeImage = async (repo) => {
-    const uniqueBranches = [];
-    if (repo.default_branch) {
-      uniqueBranches.push(repo.default_branch);
-    }
-    uniqueBranches.push("main", "master");
-    const branches = Array.from(new Set(uniqueBranches.filter(Boolean)));
-
-    for (const branch of branches) {
-      const readmePaths = [
-        `https://raw.githubusercontent.com/${username}/${repo.name}/${branch}/README.md`,
-        `https://raw.githubusercontent.com/${username}/${repo.name}/${branch}/readme.md`,
-        `https://raw.githubusercontent.com/${username}/${repo.name}/${branch}/README.rst`,
-        `https://raw.githubusercontent.com/${username}/${repo.name}/${branch}/readme.rst`,
-      ];
-
-      for (const readmePath of readmePaths) {
-        try {
-          const response = await fetch(readmePath, { cache: "no-store" });
-          if (!response.ok) continue;
-          const body = await response.text();
-          const image = findReadmeImage(body, repo.name, branch);
-          if (image) {
-            return image;
-          }
-        } catch {
-          // keep searching other paths
-        }
-      }
-    }
-
-    return "";
-  };
-
-  const repoCard = (repo, imageUrl) => `
+  const repoCard = (project, repo) => `
     <article class="card project-card">
-      <img
-        class="repo-thumb"
-        loading="lazy"
-        alt="${repo.name} repository card"
-        src="${imageUrl || repoStatsImage(repo)}"
-        onerror="this.style.display='none'"
-      />
-      <h3><a class="subtle-link" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${repo.name}</a></h3>
-      <p>${repo.description || "説明なし"}</p>
-      <p class="meta">${repo.language || "Language N/A"} / stars: ${toText(repo.stargazers_count)}</p>
+      <div class="project-card-head">
+        <div>
+          <h3><a class="subtle-link" href="${repo?.html_url || `https://github.com/${username}/${project.name}`}" target="_blank" rel="noopener noreferrer">${project.name}</a></h3>
+          <p>${project.description}</p>
+        </div>
+        <a class="project-link" href="${repo?.html_url || `https://github.com/${username}/${project.name}`}" target="_blank" rel="noopener noreferrer">${t("projectRepo")}</a>
+      </div>
+      <div class="tag-list">
+        ${project.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
+      </div>
+      <p class="meta">${t("projectLanguage")}: ${repo?.language || t("languageUnavailable")} / ${t("projectStars")}: ${typeof repo?.stargazers_count === "number" ? toText(repo.stargazers_count) : "-"}</p>
     </article>
   `;
 
@@ -219,37 +203,24 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
   };
 
-  const renderProjects = async (repos, fallbackContainer) => {
+  const renderProjects = (repos, fallbackContainer) => {
     if (!Array.isArray(repos) || !fallbackContainer) {
       return;
     }
 
-    const sortedRepos = repos
-      .filter((repo) => !repo.fork)
-      .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0));
-
-    const topRepos = sortedRepos.slice(0, 6);
-    const nodes = await Promise.all(
-      topRepos.map(async (repo) => {
-        let image = "";
-        try {
-          image = await pickReadmeImage(repo);
-        } catch {
-          image = "";
-        }
-        return repoCard(repo, image);
-      })
+    const repoMap = new Map(
+      repos
+        .filter((repo) => !repo.fork)
+        .map((repo) => [repo.name, repo])
     );
+    const nodes = selectedProjects.map((project) => repoCard(project, repoMap.get(project.name)));
 
     fallbackContainer.innerHTML =
-    nodes.join("") || `<article class="card project-card"><p class="muted">${t("projectNotFound")}</p></article>`;
+      nodes.join("") || `<article class="card project-card"><p class="muted">${t("projectNotFound")}</p></article>`;
   };
 
   const loadProjects = (repos, list) => {
-    renderProjects(repos, list).catch(() => {
-      list.innerHTML =
-        `<article class="card project-card"><p class="muted">${t("projectLoadError")}</p></article>`;
-    });
+    renderProjects(repos, list);
   };
 
   fetch(userApi)
@@ -274,8 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(() => {
       const list = document.querySelector("#project-list");
       if (list) {
-        list.innerHTML =
-          `<article class="card project-card"><p class="muted">${t("projectLoadError")}</p></article>`;
+        loadProjects([], list);
       }
     });
 

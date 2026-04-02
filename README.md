@@ -3,7 +3,8 @@
 このリポジトリは `rsasaki0109` の自己紹介ページです。
 
 - 主要リンク: X（旧Twitter）/ GitHub
-- GitHub API から公開リポジトリ情報を読み込み、スター数順で表示
+- GitHub profile README の `Selected Repositories` を中心に掲載
+- GitHub API からプロフィール統計と各リポジトリの補足情報を取得
 - モバイル対応のシンプルな1ページ構成
 
 ## 公開方法（GitHub Pages）
