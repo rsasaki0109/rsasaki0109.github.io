@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
       projectStars: "スター",
       projectRepo: "GitHubで開く",
       languageUnavailable: "未取得",
+      projectCategoryTop: "Top Starred",
+      projectCategoryActive: "Recent Active",
       noPostsTitle: "投稿なし",
       noPostsText: "投稿情報を取得できませんでした。時間をおいて再取得してください。",
       unavailable: "未取得",
@@ -28,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
       projectStars: "stars",
       projectRepo: "GitHub Repo",
       languageUnavailable: "Language N/A",
+      projectCategoryTop: "Top Starred",
+      projectCategoryActive: "Recent Active",
       noPostsTitle: "No posts",
       noPostsText: "Failed to load posts. Please refresh again later.",
       unavailable: "Unavailable",
@@ -77,76 +81,167 @@ document.addEventListener("DOMContentLoaded", () => {
   const userApi = `https://api.github.com/users/${username}`;
   const reposApi = `${userApi}/repos?per_page=100`;
 
-  const selectedProjects =
-    LOCALE === "en"
-      ? [
-          {
-            name: "lidarslam_ros2",
-            description: "ROS 2 LiDAR SLAM for map authoring and benchmarking.",
-            tags: ["ROS 2", "LiDAR SLAM", "Mapping"],
-          },
-          {
-            name: "lidar_localization_ros2",
-            description: "3D LiDAR localization in ROS 2.",
-            tags: ["ROS 2", "Localization", "LiDAR"],
-          },
-          {
-            name: "kalman_filter_localization_ros2",
-            description: "GNSS/IMU localization with Kalman filtering.",
-            tags: ["GNSS", "IMU", "Kalman Filter"],
-          },
-          {
-            name: "rust_robotics",
-            description: "Robotics algorithms implemented in Rust.",
-            tags: ["Rust", "Robotics", "Algorithms"],
-          },
-          {
-            name: "gnssplusplus-library",
-            description: "Modern C++ GNSS / RTK / PPP / CLAS toolkit.",
-            tags: ["C++", "GNSS", "RTK/PPP/CLAS"],
-          },
-        ]
-      : [
-          {
-            name: "lidarslam_ros2",
-            description: "ROS 2 向けの LiDAR SLAM。地図作成とベンチマーク用途をまとめて扱えます。",
-            tags: ["ROS 2", "LiDAR SLAM", "Mapping"],
-          },
-          {
-            name: "lidar_localization_ros2",
-            description: "ROS 2 向けの 3D LiDAR localization 実装です。",
-            tags: ["ROS 2", "Localization", "LiDAR"],
-          },
-          {
-            name: "kalman_filter_localization_ros2",
-            description: "Kalman filter を使った GNSS / IMU localization 実装です。",
-            tags: ["GNSS", "IMU", "Kalman Filter"],
-          },
-          {
-            name: "rust_robotics",
-            description: "Rust で実装したロボティクス向けアルゴリズム集です。",
-            tags: ["Rust", "Robotics", "Algorithms"],
-          },
-          {
-            name: "gnssplusplus-library",
-            description: "modern C++ による GNSS / RTK / PPP / CLAS toolkit です。",
-            tags: ["C++", "GNSS", "RTK/PPP/CLAS"],
-          },
-        ];
+  const featuredProjects = [
+    {
+      name: "lidarslam_ros2",
+      category: "top",
+      description: {
+        ja: "Pointcloud map authoring、benchmarking、Autoware compatible workflow まで含む ROS 2 LiDAR SLAM です。",
+        en: "ROS 2 LiDAR SLAM for pointcloud-map authoring, benchmarking, and Autoware-compatible map workflows.",
+      },
+      tags: ["ROS 2", "LiDAR SLAM", "Mapping"],
+      preview: "https://raw.githubusercontent.com/rsasaki0109/lidarslam_ros2/develop/lidarslam/images/social_autoware_map_authoring.png",
+      previewAlt: "lidarslam_ros2 preview",
+      fallbackStars: 799,
+      fallbackLanguage: "C++",
+    },
+    {
+      name: "lidar_localization_ros2",
+      category: "top",
+      description: {
+        ja: "NDT / GICP と pointcloud map を使う ROS 2 向け 3D LiDAR localization です。",
+        en: "3D LiDAR localization with NDT/GICP and pointcloud maps in ROS 2.",
+      },
+      tags: ["ROS 2", "Localization", "LiDAR"],
+      preview: "https://raw.githubusercontent.com/rsasaki0109/lidar_localization_ros2/main/images/path.png",
+      previewAlt: "lidar_localization_ros2 preview",
+      fallbackStars: 484,
+      fallbackLanguage: "C++",
+    },
+    {
+      name: "li_slam_ros2",
+      category: "top",
+      description: {
+        ja: "Tightly-coupled な LiDAR inertial SLAM を ROS 2 で実装したプロジェクトです。",
+        en: "Tightly-coupled LiDAR inertial SLAM for ROS 2.",
+      },
+      tags: ["ROS 2", "LiDAR-Inertial", "SLAM"],
+      preview: "https://raw.githubusercontent.com/rsasaki0109/li_slam_ros2/develop/scanmatcher/images/li_slam.gif",
+      previewAlt: "li_slam_ros2 preview",
+      fallbackStars: 416,
+      fallbackLanguage: "C++",
+    },
+    {
+      name: "kalman_filter_localization_ros2",
+      category: "top",
+      description: {
+        ja: "Kalman filtering による GNSS / IMU localization 実装です。",
+        en: "GNSS / IMU localization using Kalman filtering.",
+      },
+      tags: ["GNSS", "IMU", "Kalman Filter"],
+      preview: "https://raw.githubusercontent.com/rsasaki0109/kalman_filter_localization_ros2/devel/images/demo_ekfl.gif",
+      previewAlt: "kalman_filter_localization_ros2 preview",
+      fallbackStars: 342,
+      fallbackLanguage: "C++",
+    },
+    {
+      name: "rust_robotics",
+      category: "top",
+      description: {
+        ja: "Rust による robotics algorithms と reference implementations です。",
+        en: "Robotics algorithms and reference implementations in Rust.",
+      },
+      tags: ["Rust", "Robotics", "Algorithms"],
+      preview: "https://raw.githubusercontent.com/rsasaki0109/rust_robotics/main/docs/assets/social-preview.svg",
+      previewAlt: "rust_robotics preview",
+      fallbackStars: 184,
+      fallbackLanguage: "Rust",
+    },
+    {
+      name: "gnssplusplus-library",
+      category: "top",
+      description: {
+        ja: "modern C++ で書かれた GNSS / RTK / PPP / CLAS toolkit です。",
+        en: "Modern C++ GNSS / RTK / PPP / CLAS toolkit.",
+      },
+      tags: ["C++", "GNSS", "RTK/PPP/CLAS"],
+      preview: "https://raw.githubusercontent.com/rsasaki0109/gnssplusplus-library/develop/docs/driving_odaiba_social_card.png",
+      previewAlt: "gnssplusplus-library preview",
+      fallbackStars: 119,
+      fallbackLanguage: "C++",
+    },
+    {
+      name: "dynamic-3d-object-removal",
+      category: "active",
+      description: {
+        ja: "Public demo と ROS 2 realtime node を含む LiDAR dynamic object removal です。",
+        en: "LiDAR dynamic object removal with public demos and a ROS 2 realtime node.",
+      },
+      tags: ["ROS 2", "LiDAR", "Demo"],
+      preview: "https://raw.githubusercontent.com/rsasaki0109/dynamic-3d-object-removal/master/demo/story_mode.gif",
+      previewAlt: "dynamic-3d-object-removal preview",
+      fallbackStars: 29,
+      fallbackLanguage: "Python",
+    },
+    {
+      name: "localization_zoo",
+      category: "active",
+      description: {
+        ja: "Recent localization baselines、derived variants、tests、benchmarks をまとめたリポジトリです。",
+        en: "Recent localization baselines, derived variants, tests, and benchmarks.",
+      },
+      tags: ["Localization", "Benchmarks", "Tests"],
+      preview: "https://raw.githubusercontent.com/rsasaki0109/localization_zoo/main/docs/benchmarks/latest/trajectory.png",
+      previewAlt: "localization_zoo preview",
+      fallbackStars: 12,
+      fallbackLanguage: "Python",
+    },
+    {
+      name: "CloudAnalyzer",
+      category: "active",
+      description: {
+        ja: "Point-cloud analysis CLI。metrics、ICP、GICP workflow を含みます。",
+        en: "Active point-cloud analysis CLI with metrics, ICP, and GICP workflows.",
+      },
+      tags: ["Point Cloud", "CLI", "Analysis"],
+      preview: "https://raw.githubusercontent.com/rsasaki0109/CloudAnalyzer/main/docs/images/f1_voxel05.png",
+      previewAlt: "CloudAnalyzer preview",
+      fallbackStars: 7,
+      fallbackLanguage: "Python",
+    },
+    {
+      name: "gnss_gpu",
+      category: "active",
+      description: {
+        ja: "CUDA + Python による GPU-accelerated GNSS signal processing です。",
+        en: "GPU-accelerated GNSS signal processing in CUDA + Python.",
+      },
+      tags: ["CUDA", "GNSS", "GPU"],
+      preview: "https://raw.githubusercontent.com/rsasaki0109/gnss_gpu/main/docs/assets/media/site_poster.png",
+      previewAlt: "gnss_gpu preview",
+      fallbackStars: 3,
+      fallbackLanguage: "CUDA",
+    },
+  ];
+
+  const projectCategoryLabel = (category) =>
+    category === "active" ? t("projectCategoryActive") : t("projectCategoryTop");
 
   const repoCard = (project, repo) => `
     <article class="card project-card">
+      <div class="project-card-top">
+        <span class="project-badge">${projectCategoryLabel(project.category)}</span>
+        <a class="project-link" href="${repo?.html_url || `https://github.com/${username}/${project.name}`}" target="_blank" rel="noopener noreferrer">${t("projectRepo")}</a>
+      </div>
+      <a class="project-media" href="${repo?.html_url || `https://github.com/${username}/${project.name}`}" target="_blank" rel="noopener noreferrer" aria-label="${project.name}">
+        <img
+          class="project-preview"
+          loading="lazy"
+          decoding="async"
+          alt="${project.previewAlt}"
+          src="${project.preview}"
+        />
+      </a>
       <div class="project-card-head">
         <div>
           <h3><a class="subtle-link" href="${repo?.html_url || `https://github.com/${username}/${project.name}`}" target="_blank" rel="noopener noreferrer">${project.name}</a></h3>
-          <p>${project.description}</p>
+          <p>${project.description[LOCALE]}</p>
         </div>
-        <a class="project-link" href="${repo?.html_url || `https://github.com/${username}/${project.name}`}" target="_blank" rel="noopener noreferrer">${t("projectRepo")}</a>
       </div>
       <div class="tag-list">
         ${project.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
       </div>
-      <p class="meta">${t("projectLanguage")}: ${repo?.language || t("languageUnavailable")} / ${t("projectStars")}: ${typeof repo?.stargazers_count === "number" ? toText(repo.stargazers_count) : "-"}</p>
+      <p class="meta">${t("projectLanguage")}: ${project.fallbackLanguage || repo?.language || t("languageUnavailable")} / ${t("projectStars")}: ${typeof repo?.stargazers_count === "number" ? toText(repo.stargazers_count) : toText(project.fallbackStars)}</p>
     </article>
   `;
 
@@ -213,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .filter((repo) => !repo.fork)
         .map((repo) => [repo.name, repo])
     );
-    const nodes = selectedProjects.map((project) => repoCard(project, repoMap.get(project.name)));
+    const nodes = featuredProjects.map((project) => repoCard(project, repoMap.get(project.name)));
 
     fallbackContainer.innerHTML =
       nodes.join("") || `<article class="card project-card"><p class="muted">${t("projectNotFound")}</p></article>`;
