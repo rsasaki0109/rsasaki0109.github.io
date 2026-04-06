@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-06T03:59:35Z",
+  "updated_at": "2026-04-07T03:56:18Z",
   "items": [
     {
       "url": "http://x.com/rsasaki0109/status/1971756431117635694",
@@ -23,7 +23,7 @@
       "date": "2024-11-17",
       "text": "AutoCarROS2 A virtual simulation platform for auton…",
       "desc": "AutoCarROS2 A virtual simulation platform for autonomous vehicle sensing, mapping, control and behaviour methods using ROS 2 and Gazebo. https://github.com/winstxnhdw/Aut oCarROS2…",
-      "image": "",
+      "image": "https://pbs.twimg.com/ext_tw_video_thumb/1843541310239846401/pu/img/wfDoHAVA-2Zq7dyV.jpg",
       "media": {
         "type": "video",
         "url": "https://video.twimg.com/ext_tw_video/1843541310239846401/pu/vid/avc1/1280x720/nOL03Y57t6hXrDsW.mp4?tag=12",
@@ -34,7 +34,7 @@
       "metrics": {
         "likes": 673,
         "retweets": 96,
-        "impressions": 51385
+        "impressions": 51386
       }
     },
     {
@@ -42,7 +42,7 @@
       "date": "2024-07-28",
       "text": "ge-gnss-visibility GNSS satellite visibility simula…",
       "desc": "ge-gnss-visibility GNSS satellite visibility simulation from Google Earth https://github.com/taroz/ge-gnss-visibility…",
-      "image": "",
+      "image": "https://pbs.twimg.com/ext_tw_video_thumb/1811775390589005824/pu/img/_qVl-5Z54cKnnoGP.jpg",
       "media": {
         "type": "video",
         "url": "https://video.twimg.com/ext_tw_video/1811775390589005824/pu/vid/avc1/604x604/nX-qO7JO93ifFP5H.mp4?tag=12",
@@ -61,7 +61,7 @@
       "date": "2024-02-20",
       "text": "VisFusion: Visibility-aware Online 3D Scene Reconst…",
       "desc": "VisFusion: Visibility-aware Online 3D Scene Reconstruction from Videos (CVPR 2023) https://github.com/huiyu-gao/VisF usion…",
-      "image": "",
+      "image": "https://pbs.twimg.com/ext_tw_video_thumb/1759779957755293696/pu/img/m6GSv8wiOYi0g3wr.jpg",
       "media": {
         "type": "video",
         "url": "https://video.twimg.com/ext_tw_video/1759779957755293696/pu/vid/avc1/598x448/1OnLHY4GQIyIF5fL.mp4?tag=12",
@@ -70,8 +70,8 @@
         "content_type": "video/mp4"
       },
       "metrics": {
-        "likes": 416,
-        "retweets": 77,
+        "likes": 415,
+        "retweets": 76,
         "impressions": 48560
       }
     },
@@ -91,7 +91,7 @@
       "metrics": {
         "likes": 867,
         "retweets": 130,
-        "impressions": 102675
+        "impressions": 102676
       }
     },
     {
