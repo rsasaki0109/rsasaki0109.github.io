@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-13T04:05:09Z",
+  "updated_at": "2026-04-14T04:00:43Z",
   "items": [
     {
       "url": "http://x.com/rsasaki0109/status/1971756431117635694",
@@ -13,9 +13,9 @@
         "poster": ""
       },
       "metrics": {
-        "likes": 527,
-        "retweets": 65,
-        "impressions": 33355
+        "likes": 526,
+        "retweets": 64,
+        "impressions": 33356
       }
     },
     {
@@ -32,8 +32,8 @@
         "content_type": "video/mp4"
       },
       "metrics": {
-        "likes": 672,
-        "retweets": 95,
+        "likes": 671,
+        "retweets": 96,
         "impressions": 51390
       }
     },
@@ -71,7 +71,7 @@
       },
       "metrics": {
         "likes": 415,
-        "retweets": 76,
+        "retweets": 77,
         "impressions": 48561
       }
     },
@@ -89,7 +89,7 @@
         "content_type": "video/mp4"
       },
       "metrics": {
-        "likes": 865,
+        "likes": 864,
         "retweets": 130,
         "impressions": 102677
       }
