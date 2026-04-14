@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+JP:wght@400;600;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;family=Noto+Sans+JP:wght@400;600;800&amp;display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -27,8 +27,9 @@
       <div class="brand">RSasaki0109</div>
       <nav>
         <a href="#profile">Profile</a>
+        <a href="#now">Now</a>
         <a href="#projects">Projects</a>
-        <a href="#tweets">Tweets</a>
+        <a href="#tweets">Posts</a>
         <a href="#social">SNS</a>
         <a href="index_en.html">EN</a>
       </nav>
@@ -36,7 +37,7 @@
 
     <main>
       <section class="hero">
-        <p class="eyebrow">自己紹介</p>
+        <p class="eyebrow">Spring 2026 Refresh</p>
         <div class="hero-quick-links" aria-label="主要リンク">
           <a class="hero-icon-link" href="https://x.com/rsasaki0109" target="_blank" rel="noopener noreferrer" aria-label="X Profile">
             <span
@@ -74,15 +75,24 @@
         <h1>
           rsasaki0109
         </h1>
+        <div class="hero-tags" aria-label="focus areas">
+          <span class="hero-tag">Localization</span>
+          <span class="hero-tag">Mapping</span>
+          <span class="hero-tag">ROS 2</span>
+          <span class="hero-tag">Open Source</span>
+        </div>
+        <p class="hero-lead">
+          ロボティクス向けの Localization / Mapping を軸に、再現性のある実装、デモ、ベンチマーク整備を続けています。
+        </p>
         <p class="sub">
-          rsasaki0109.github.io は、私の経歴・技術関心・開発実績を短くまとめる自己紹介ページです。  
-          興味分野は、GNSS、LiDAR、IMU、SLAM、ロボティクス、Localization / Mappingです。
+          rsasaki0109.github.io は、経歴だけでなく「今どこに注力しているか」まで見える自己紹介ページです。
+          興味分野は、GNSS、LiDAR、IMU、SLAM、ロボティクス、Localization / Mapping、評価・可視化ツールです。
         </p>
         <div class="cta-group">
           <a class="btn primary" href="#profile">プロフィールを見る</a>
+          <a class="btn ghost" href="#now">最近の注力を見る</a>
           <a class="btn ghost" href="#projects">GitHub Projectsを見る</a>
-          <a class="btn ghost" href="#tweets">人気ツイートを見る</a>
-          <a class="btn ghost" href="#social">SNSを見る</a>
+          <a class="btn ghost" href="cloudanalyzer/index.html">CloudAnalyzer Demo</a>
         </div>
         <div class="stat-grid" aria-label="stats">
           <article>
@@ -94,8 +104,12 @@
             <span class="label">GitHubフォロワー</span>
           </article>
           <article>
-            <span class="value" id="x-followers">8,490</span>
-            <span class="label">Xフォロワー</span>
+            <span class="value">C++ / Python</span>
+            <span class="label">主な実装スタック</span>
+          </article>
+          <article>
+            <span class="value">Nagoya</span>
+            <span class="label">Base / Japan</span>
           </article>
         </div>
       </section>
@@ -115,24 +129,86 @@
             <h3>得意領域</h3>
             <p>GNSS, LiDAR, IMU, SLAM, Robotics, Localization, Mapping</p>
           </article>
+          <article class="card">
+            <h3>開発スタイル</h3>
+            <p>公開デモ、再現性、ベンチマーク、Autoware連携を重視して進めています。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="now" class="panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Now</h2>
+            <p class="muted">2026年春時点で、特に時間を使っているテーマです。</p>
+          </div>
+          <p class="panel-kicker">Updated 2026-04-15</p>
+        </div>
+        <div class="focus-grid">
+          <article class="card focus-card">
+            <p class="card-label">Localization</p>
+            <h3>ベースライン比較と評価系の整備</h3>
+            <p>LiDAR / GNSS / IMU を組み合わせた localization 実装を、比較しやすい形で揃えることに注力しています。</p>
+          </article>
+          <article class="card focus-card">
+            <p class="card-label">Mapping</p>
+            <h3>Autoware につながる map workflow</h3>
+            <p>点群地図の作成、補正、検証、authoring workflow を、実運用を意識した形で整理しています。</p>
+          </article>
+          <article class="card focus-card">
+            <p class="card-label">Tooling</p>
+            <h3>可視化と解析の導線を改善</h3>
+            <p>CLI とブラウザデモを使い分けて、point cloud の差分確認や解析結果を共有しやすくしています。</p>
+          </article>
+        </div>
+        <div class="demo-banner">
+          <div class="demo-copy">
+            <p class="card-label">Featured Demo</p>
+            <h3>CloudAnalyzer をこのサイトから直接試せます</h3>
+            <p>
+              Point-cloud analysis のデモページを同じ GitHub Pages 配下に置きました。
+              自己紹介だけで終わらず、実際の成果物まで見てもらえる構成にしています。
+            </p>
+          </div>
+          <div class="cta-group compact">
+            <a class="btn primary" href="cloudanalyzer/index.html">Demo を開く</a>
+            <a class="btn ghost" href="cloudanalyzer/demo/stanford-bunny/index.html">Stanford Bunny を見る</a>
+          </div>
         </div>
       </section>
 
       <section id="projects" class="panel">
         <h2>Projects</h2>
-        <p class="muted">GitHub profile README の Featured Repositories を反映しています。</p>
-        <div id="project-list" class="grid project-grid">
-          <article class="card project-card" aria-live="polite">
-            <p class="muted">主要リポジトリを取得中...</p>
-          </article>
+        <p class="muted">代表的な公開実装を、スター数ベースの代表作と最近動かしているリポジトリに分けて表示します。</p>
+        <div class="project-section">
+          <div class="project-section-head">
+            <h3>Top Starred</h3>
+            <p class="muted">反応の大きかった主要リポジトリです。</p>
+          </div>
+          <div id="project-list-top" class="grid project-grid">
+            <article class="card project-card" aria-live="polite">
+              <p class="muted">主要リポジトリを取得中...</p>
+            </article>
+          </div>
+        </div>
+        <div class="project-section">
+          <div class="project-section-head">
+            <h3>Recent Activity</h3>
+            <p class="muted">最近更新している実装や実験寄りのリポジトリです。</p>
+          </div>
+          <div id="project-list-active" class="grid project-grid">
+            <article class="card project-card" aria-live="polite">
+              <p class="muted">最近の活動を取得中...</p>
+            </article>
+          </div>
         </div>
         <p class="notice">その他のリポジトリは <a href="https://github.com/rsasaki0109" target="_blank" rel="noopener noreferrer">GitHub profile</a> で確認できます。</p>
       </section>
 
       <section id="tweets" class="panel">
-        <h2>Popular Tweets</h2>
+        <h2>Picked Posts</h2>
         <p class="muted">
-          画像付き投稿や返信も含めた人気の投稿（X）を自動表示します。
+          画像付き投稿や返信も含めて、反応の大きかった投稿（X）を表示します。
         </p>
         <div id="tweet-fallback" class="tweet-fallback visible" aria-live="polite">
           <h3>人気投稿（更新: <span id="tweets-updated">--</span>）</h3>
@@ -153,8 +229,8 @@
           >
             <h3>X（旧Twitter）</h3>
             <p>@rsasaki0109</p>
-            <p class="meta">8,490 Follower / 2,566 posts</p>
-            <p class="muted">画像付き投稿・議論の傾向を確認できます。</p>
+            <p class="meta">Research notes / demos / paper shares</p>
+            <p class="muted">画像付き投稿や議論の雰囲気を確認できます。</p>
           </a>
           <a
             class="social-card"
@@ -165,7 +241,8 @@
           >
             <h3>GitHub</h3>
             <p>github.com/rsasaki0109</p>
-            <p class="meta">公開リポジトリ 44 / フォロワー 622 / フォロー中 7</p>
+            <p class="meta">Open-source implementations and recent experiments</p>
+            <p class="muted">上部のリポジトリ数・フォロワー数は GitHub API から動的に取得します。</p>
           </a>
           <a class="social-card" href="mailto:rsasaki0109@gmail.com">
             <h3>メール</h3>
@@ -173,13 +250,20 @@
             <p class="meta">メールでの連絡</p>
             <p class="muted">お問い合わせやコラボ依頼はこちらから。</p>
           </a>
+          <a class="social-card" href="cloudanalyzer/index.html">
+            <h3>CloudAnalyzer</h3>
+            <p>interactive demo</p>
+            <p class="meta">Point-cloud analysis on GitHub Pages</p>
+            <p class="muted">このサイト内でそのままデモを確認できます。</p>
+          </a>
         </div>
-        <p class="notice">最終更新: 2026-03-03（GitHub API / X公開情報）</p>
+        <p class="notice">ページ更新: 2026-04-15。GitHub の数値は live fetch、X 投稿は公開キャッシュから表示しています。</p>
       </section>
     </main>
 
     <footer>
       <p>© <span id="year"></span> rsasaki0109.github.io</p>
+      <p class="footer-meta">Robotics, localization, mapping, and public demos.</p>
     </footer>
 
   </body>

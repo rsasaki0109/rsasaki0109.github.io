@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       unavailable: "未取得",
       unavailableText: "データ取得に失敗しました。少し時間をおいて再読み込みしてください。",
       githubError: "error",
+      unknown: "不明",
       likes: "いいね",
       retweets: "リツイート",
       impressions: "インプレッション",
@@ -40,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
       unavailable: "Unavailable",
       unavailableText: "Failed to load data. Please refresh again later.",
       githubError: "error",
+      unknown: "Unknown",
       likes: "Likes",
       retweets: "Retweets",
       impressions: "Impressions",
@@ -77,6 +79,21 @@ document.addEventListener("DOMContentLoaded", () => {
       notation: "compact",
       maximumFractionDigits: 1,
     }).format(value);
+  };
+
+  const formatDisplayDate = (value) => {
+    if (!value) {
+      return t("unknown");
+    }
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) {
+      return value;
+    }
+    return new Intl.DateTimeFormat(LOCALE === "en" ? "en-US" : "ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(date);
   };
 
   const setFallbackVisibility = (visible) => {
@@ -209,14 +226,27 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "CloudAnalyzer",
       category: "active",
       description: {
-        ja: "Point-cloud analysis CLI。metrics、ICP、GICP workflow を含みます。",
-        en: "Active point-cloud analysis CLI with metrics, ICP, and GICP workflows.",
+        ja: "Point-cloud / trajectory / 3D perception 出力を評価する CLI-first QA toolkit です。",
+        en: "CLI-first QA toolkit for point clouds, trajectories, and 3D perception outputs.",
       },
-      tags: ["Point Cloud", "CLI", "Analysis"],
-      preview: "https://raw.githubusercontent.com/rsasaki0109/CloudAnalyzer/main/docs/images/f1_voxel05.png",
+      tags: ["Point Cloud", "QA", "CLI"],
+      preview: "https://raw.githubusercontent.com/rsasaki0109/CloudAnalyzer/main/docs/images/f1_hdl_localization_v0_5.png",
       previewAlt: "CloudAnalyzer preview",
-      fallbackStars: 7,
+      fallbackStars: 13,
       fallbackLanguage: "Python",
+    },
+    {
+      name: "CudaRobotics",
+      category: "active",
+      description: {
+        ja: "CUDA で高速化した robotics algorithms 集。SLAM、path planning、localization、point-cloud 処理を横断します。",
+        en: "CUDA-accelerated robotics algorithms spanning SLAM, path planning, localization, and point-cloud processing.",
+      },
+      tags: ["CUDA", "Robotics", "GPU"],
+      preview: "https://raw.githubusercontent.com/rsasaki0109/CudaRobotics/master/gif/comparison_diff_mppi.gif",
+      previewAlt: "CudaRobotics preview",
+      fallbackStars: 41,
+      fallbackLanguage: "Cuda",
     },
     {
       name: "gnss_gpu",
@@ -235,6 +265,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const projectCategoryLabel = (category) =>
     category === "active" ? t("projectCategoryActive") : t("projectCategoryTop");
+
+  const parseDateValue = (value) => {
+    const time = value ? Date.parse(value) : NaN;
+    return Number.isNaN(time) ? 0 : time;
+  };
+
+  const sortProjectsForCategory = (projects, repoMap, category) =>
+    [...projects].sort((left, right) => {
+      const repoLeft = repoMap.get(left.name);
+      const repoRight = repoMap.get(right.name);
+
+      if (category === "active") {
+        const dateDiff = parseDateValue(repoRight?.pushed_at) - parseDateValue(repoLeft?.pushed_at);
+        if (dateDiff !== 0) {
+          return dateDiff;
+        }
+      } else {
+        const starDiff =
+          (typeof repoRight?.stargazers_count === "number" ? repoRight.stargazers_count : right.fallbackStars || 0) -
+          (typeof repoLeft?.stargazers_count === "number" ? repoLeft.stargazers_count : left.fallbackStars || 0);
+        if (starDiff !== 0) {
+          return starDiff;
+        }
+      }
+
+      return featuredProjects.findIndex((project) => project.name === left.name) -
+        featuredProjects.findIndex((project) => project.name === right.name);
+    });
 
   const repoCard = (project, repo) => `
     <article class="card project-card">
@@ -260,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="tag-list">
         ${project.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
       </div>
-      <p class="meta">${t("projectLanguage")}: ${project.fallbackLanguage || repo?.language || t("languageUnavailable")} / ${t("projectStars")}: ${typeof repo?.stargazers_count === "number" ? toText(repo.stargazers_count) : toText(project.fallbackStars)}</p>
+      <p class="meta">${t("projectLanguage")}: ${repo?.language || project.fallbackLanguage || t("languageUnavailable")} / ${t("projectStars")}: ${typeof repo?.stargazers_count === "number" ? toText(repo.stargazers_count) : toText(project.fallbackStars)}</p>
     </article>
   `;
 
@@ -323,7 +381,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!list) return;
     const records = Array.isArray(payload) ? payload : payload && payload.items ? payload.items : [];
     const updatedAt = payload.updated_at || "";
-    const displayUpdated = updatedAt ? (updatedAt.split("T")[0] || updatedAt) : "不明";
+    const displayUpdated = formatDisplayDate(updatedAt);
     setTextById("tweets-updated", displayUpdated);
     if (!records.length) {
       list.innerHTML =
@@ -336,24 +394,44 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
   };
 
-  const renderProjects = (repos, fallbackContainer) => {
-    if (!Array.isArray(repos) || !fallbackContainer) {
+  const renderProjectSection = (projects, repoMap, container) => {
+    if (!container) {
       return;
     }
 
+    const nodes = projects.map((project) => repoCard(project, repoMap.get(project.name)));
+    container.innerHTML =
+      nodes.join("") || `<article class="card project-card"><p class="muted">${t("projectNotFound")}</p></article>`;
+  };
+
+  const renderProjects = (repos) => {
+    if (!Array.isArray(repos)) {
+      return;
+    }
     const repoMap = new Map(
       repos
         .filter((repo) => !repo.fork)
         .map((repo) => [repo.name, repo])
     );
-    const nodes = featuredProjects.map((project) => repoCard(project, repoMap.get(project.name)));
+    const topContainer = document.querySelector("#project-list-top");
+    const activeContainer = document.querySelector("#project-list-active");
+    const topProjects = sortProjectsForCategory(
+      featuredProjects.filter((project) => project.category === "top"),
+      repoMap,
+      "top"
+    );
+    const activeProjects = sortProjectsForCategory(
+      featuredProjects.filter((project) => project.category === "active"),
+      repoMap,
+      "active"
+    );
 
-    fallbackContainer.innerHTML =
-      nodes.join("") || `<article class="card project-card"><p class="muted">${t("projectNotFound")}</p></article>`;
+    renderProjectSection(topProjects, repoMap, topContainer);
+    renderProjectSection(activeProjects, repoMap, activeContainer);
   };
 
-  const loadProjects = (repos, list) => {
-    renderProjects(repos, list);
+  const loadProjects = (repos) => {
+    renderProjects(repos);
   };
 
   fetch(userApi)
@@ -370,16 +448,11 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch(reposApi)
     .then(toJson)
     .then((repos) => {
-      const list = document.querySelector("#project-list");
-      if (!list) return;
       const repoItems = Array.isArray(repos) ? repos : repos.items || [];
-      loadProjects(repoItems, list);
+      loadProjects(repoItems);
     })
     .catch(() => {
-      const list = document.querySelector("#project-list");
-      if (list) {
-        loadProjects([], list);
-      }
+      loadProjects([]);
     });
 
   fetch("data/tweets.json", { cache: "no-store" })
