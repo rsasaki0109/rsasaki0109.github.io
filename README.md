@@ -4,7 +4,7 @@
 
 - 主要リンク: X（旧Twitter）/ GitHub
 - `Now` セクションで現在の注力領域を掲載
-- CloudAnalyzer デモへの導線をトップページから提供
+- CloudAnalyzer のブラウザデモは `/cloudanalyzer/` に同梱（トップからの強い導線は置いていない）
 - GitHub profile README の `Featured Repositories` を preview 画像/GIFつきで掲載
 - GitHub API からプロフィール統計と各リポジトリの補足情報を取得
 - X の人気投稿を公開キャッシュから表示
