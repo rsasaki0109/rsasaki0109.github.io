@@ -223,19 +223,6 @@ document.addEventListener("DOMContentLoaded", () => {
       fallbackLanguage: "Python",
     },
     {
-      name: "CloudAnalyzer",
-      category: "active",
-      description: {
-        ja: "Point-cloud / trajectory / 3D perception 出力を評価する CLI-first QA toolkit です。",
-        en: "CLI-first QA toolkit for point clouds, trajectories, and 3D perception outputs.",
-      },
-      tags: ["Point Cloud", "QA", "CLI"],
-      preview: "https://raw.githubusercontent.com/rsasaki0109/CloudAnalyzer/main/docs/images/f1_hdl_localization_v0_5.png",
-      previewAlt: "CloudAnalyzer preview",
-      fallbackStars: 13,
-      fallbackLanguage: "Python",
-    },
-    {
       name: "CudaRobotics",
       category: "active",
       description: {
