@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+JP:wght@400;600;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;family=Noto+Sans+JP:wght@400;600;800&amp;display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -27,8 +27,9 @@
       <div class="brand">RSasaki0109</div>
       <nav>
         <a href="#profile">Profile</a>
+        <a href="#now">Now</a>
         <a href="#projects">Projects</a>
-        <a href="#tweets">Tweets</a>
+        <a href="#tweets">Posts</a>
         <a href="#social">Contact</a>
         <a href="index.html">JP</a>
       </nav>
@@ -36,7 +37,7 @@
 
     <main>
       <section class="hero">
-        <p class="eyebrow">Introduction</p>
+        <p class="eyebrow">Spring 2026 Refresh</p>
         <div class="hero-quick-links" aria-label="Main profiles">
           <a class="hero-icon-link" href="https://x.com/rsasaki0109" target="_blank" rel="noopener noreferrer" aria-label="X Profile">
             <span
@@ -74,15 +75,24 @@
         <h1>
           rsasaki0109
         </h1>
+        <div class="hero-tags" aria-label="focus areas">
+          <span class="hero-tag">Localization</span>
+          <span class="hero-tag">Mapping</span>
+          <span class="hero-tag">ROS 2</span>
+          <span class="hero-tag">Open Source</span>
+        </div>
+        <p class="hero-lead">
+          I build robotics-focused localization and mapping software, with an emphasis on reproducible implementations, demos, and benchmarks.
+        </p>
         <p class="sub">
-          This is a concise profile page for my background, technical interests, and development track record.
-          My focus is GNSS, LiDAR, IMU, SLAM, robotics, and localization/mapping.
+          This page now shows not only my background, but also what I am actively working on.
+          My focus spans GNSS, LiDAR, IMU, SLAM, robotics, localization/mapping, and evaluation tooling.
         </p>
         <div class="cta-group">
           <a class="btn primary" href="#profile">View profile</a>
+          <a class="btn ghost" href="#now">See current focus</a>
           <a class="btn ghost" href="#projects">View GitHub projects</a>
-          <a class="btn ghost" href="#tweets">View popular tweets</a>
-          <a class="btn ghost" href="#social">Visit SNS</a>
+          <a class="btn ghost" href="cloudanalyzer/index.html">CloudAnalyzer Demo</a>
         </div>
         <div class="stat-grid" aria-label="stats">
           <article>
@@ -94,8 +104,12 @@
             <span class="label">GitHub followers</span>
           </article>
           <article>
-            <span class="value" id="x-followers">8,490</span>
-            <span class="label">X followers</span>
+            <span class="value">C++ / Python</span>
+            <span class="label">Main implementation stack</span>
+          </article>
+          <article>
+            <span class="value">Nagoya</span>
+            <span class="label">Base / Japan</span>
           </article>
         </div>
       </section>
@@ -115,24 +129,86 @@
             <h3>Expertise</h3>
             <p>GNSS, LiDAR, IMU, SLAM, Robotics, Localization, Mapping</p>
           </article>
+          <article class="card">
+            <h3>Working style</h3>
+            <p>I prefer public demos, reproducible evaluation, benchmarks, and Autoware-friendly workflows.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="now" class="panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Now</h2>
+            <p class="muted">Themes that currently take most of my attention.</p>
+          </div>
+          <p class="panel-kicker">Updated 2026-04-15</p>
+        </div>
+        <div class="focus-grid">
+          <article class="card focus-card">
+            <p class="card-label">Localization</p>
+            <h3>Baselines, comparison, and evaluation</h3>
+            <p>I am aligning LiDAR, GNSS, and IMU localization implementations into a form that is easier to compare and benchmark.</p>
+          </article>
+          <article class="card focus-card">
+            <p class="card-label">Mapping</p>
+            <h3>Map workflows that connect to production use</h3>
+            <p>I keep refining point-cloud map authoring, correction, and validation workflows with practical deployment in mind.</p>
+          </article>
+          <article class="card focus-card">
+            <p class="card-label">Tooling</p>
+            <h3>Better visibility into point-cloud analysis</h3>
+            <p>I am improving both CLI tools and browser demos so analysis results and differences are easier to inspect and share.</p>
+          </article>
+        </div>
+        <div class="demo-banner">
+          <div class="demo-copy">
+            <p class="card-label">Featured Demo</p>
+            <h3>CloudAnalyzer is available directly from this site</h3>
+            <p>
+              The GitHub Pages site now links straight to an interactive point-cloud analysis demo,
+              so visitors can move from profile to working artifact without leaving the site.
+            </p>
+          </div>
+          <div class="cta-group compact">
+            <a class="btn primary" href="cloudanalyzer/index.html">Open demo</a>
+            <a class="btn ghost" href="cloudanalyzer/demo/stanford-bunny/index.html">View Stanford Bunny</a>
+          </div>
         </div>
       </section>
 
       <section id="projects" class="panel">
         <h2>Projects</h2>
-        <p class="muted">Featured repositories mirrored from my GitHub profile README.</p>
-        <div id="project-list" class="grid project-grid">
-          <article class="card project-card" aria-live="polite">
-            <p class="muted">Loading selected repositories...</p>
-          </article>
+        <p class="muted">Selected public repositories, split into major starred work and more recent implementation activity.</p>
+        <div class="project-section">
+          <div class="project-section-head">
+            <h3>Top Starred</h3>
+            <p class="muted">Representative repositories with stronger public traction.</p>
+          </div>
+          <div id="project-list-top" class="grid project-grid">
+            <article class="card project-card" aria-live="polite">
+              <p class="muted">Loading selected repositories...</p>
+            </article>
+          </div>
+        </div>
+        <div class="project-section">
+          <div class="project-section-head">
+            <h3>Recent Activity</h3>
+            <p class="muted">Repositories that have seen more recent implementation work.</p>
+          </div>
+          <div id="project-list-active" class="grid project-grid">
+            <article class="card project-card" aria-live="polite">
+              <p class="muted">Loading recent activity...</p>
+            </article>
+          </div>
         </div>
         <p class="notice">See the full repository list on <a href="https://github.com/rsasaki0109" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
       </section>
 
       <section id="tweets" class="panel">
-        <h2>Popular Tweets</h2>
+        <h2>Picked Posts</h2>
         <p class="muted">
-          Automatically shows popular X posts (including media posts and replies).
+          Popular X posts with strong reactions, including media posts and replies.
         </p>
         <div id="tweet-fallback" class="tweet-fallback visible" aria-live="polite">
           <h3>Popular posts (updated: <span id="tweets-updated">--</span>)</h3>
@@ -153,8 +229,8 @@
           >
             <h3>X</h3>
             <p>@rsasaki0109</p>
-            <p class="meta">8,490 followers / 2,566 posts</p>
-            <p class="muted">Check posts and discussion trends.</p>
+            <p class="meta">Research notes / demos / paper shares</p>
+            <p class="muted">A quick place to check post style and discussion trends.</p>
           </a>
           <a
             class="social-card"
@@ -165,7 +241,8 @@
           >
             <h3>GitHub</h3>
             <p>github.com/rsasaki0109</p>
-            <p class="meta">44 public repositories / 622 followers / 7 following</p>
+            <p class="meta">Open-source implementations and recent experiments</p>
+            <p class="muted">Repository and follower counts above are fetched live from the GitHub API.</p>
           </a>
           <a class="social-card" href="mailto:rsasaki0109@gmail.com">
             <h3>Email</h3>
@@ -173,13 +250,20 @@
             <p class="meta">Direct contact</p>
             <p class="muted">Work inquiries, collaboration, or technical discussions.</p>
           </a>
+          <a class="social-card" href="cloudanalyzer/index.html">
+            <h3>CloudAnalyzer</h3>
+            <p>interactive demo</p>
+            <p class="meta">Point-cloud analysis on GitHub Pages</p>
+            <p class="muted">An in-site demo for showing practical work, not just profile text.</p>
+          </a>
         </div>
-        <p class="notice">Last updated: 2026-03-03 (GitHub API / X public data)</p>
+        <p class="notice">Page refresh: 2026-04-15. GitHub counts are fetched live; X posts are shown from cached public data.</p>
       </section>
     </main>
 
     <footer>
       <p>© <span id="year"></span> rsasaki0109.github.io</p>
+      <p class="footer-meta">Robotics, localization, mapping, and public demos.</p>
     </footer>
   </body>
 </html>
