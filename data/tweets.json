@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-15T10:19:57Z",
+  "updated_at": "2026-04-16T04:02:25Z",
   "items": [
     {
       "url": "http://x.com/rsasaki0109/status/1971756431117635694",
@@ -15,7 +15,7 @@
       "metrics": {
         "likes": 526,
         "retweets": 64,
-        "impressions": 33356
+        "impressions": 33357
       }
     },
     {
@@ -51,7 +51,7 @@
         "content_type": "video/mp4"
       },
       "metrics": {
-        "likes": 993,
+        "likes": 992,
         "retweets": 159,
         "impressions": 69690
       }
