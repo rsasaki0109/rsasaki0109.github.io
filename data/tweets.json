@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-16T04:11:50Z",
+  "updated_at": "2026-05-17T04:23:14Z",
   "items": [
     {
       "url": "http://x.com/rsasaki0109/status/1971756431117635694",
@@ -13,7 +13,7 @@
         "poster": ""
       },
       "metrics": {
-        "likes": 528,
+        "likes": 527,
         "retweets": 64,
         "impressions": 33373
       }
@@ -22,7 +22,7 @@
       "url": "http://x.com/rsasaki0109/status/1858127195136229473",
       "date": "2024-11-17",
       "text": "AutoCarROS2 A virtual simulation platform for auton…",
-      "desc": "AutoCarROS2 A virtual simulation platform for autonomous vehicle sensing, mapping, control and behaviour methods using ROS 2 and Gazebo. https://github.com/winstxnhdw/Aut oCarROS2…",
+      "desc": "AutoCarROS2 A virtual simulation platform for autonomous vehicle sensing, mapping, control and behaviour methods using ROS 2 and Gazebo. https://github.com/winstxnhdw/Aut oCarROS2… Video 7",
       "image": "",
       "media": {
         "type": "video",
@@ -41,7 +41,7 @@
       "url": "http://x.com/rsasaki0109/status/1817573476053524886",
       "date": "2024-07-28",
       "text": "ge-gnss-visibility GNSS satellite visibility simula…",
-      "desc": "ge-gnss-visibility GNSS satellite visibility simulation from Google Earth https://github.com/taroz/ge-gnss-visibility…",
+      "desc": "ge-gnss-visibility GNSS satellite visibility simulation from Google Earth https://github.com/taroz/ge-gnss-visibility… Video 6",
       "image": "",
       "media": {
         "type": "video",
@@ -51,7 +51,7 @@
         "content_type": "video/mp4"
       },
       "metrics": {
-        "likes": 993,
+        "likes": 994,
         "retweets": 159,
         "impressions": 69698
       }
@@ -60,7 +60,7 @@
       "url": "http://x.com/rsasaki0109/status/1759780161262682294",
       "date": "2024-02-20",
       "text": "VisFusion: Visibility-aware Online 3D Scene Reconst…",
-      "desc": "VisFusion: Visibility-aware Online 3D Scene Reconstruction from Videos (CVPR 2023) https://github.com/huiyu-gao/VisF usion…",
+      "desc": "VisFusion: Visibility-aware Online 3D Scene Reconstruction from Videos (CVPR 2023) https://github.com/huiyu-gao/VisF usion… Video 8",
       "image": "",
       "media": {
         "type": "video",
