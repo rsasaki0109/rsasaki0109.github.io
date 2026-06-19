@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-05-19T04:24:15Z",
+  "updated_at": "2026-06-19T04:29:55Z",
   "items": [
     {
       "url": "http://x.com/rsasaki0109/status/1971756431117635694",
       "date": "2025-09-27",
       "text": "[NeurIPS 2025] Official Implementation of DINO-Fore…",
-      "desc": "[NeurIPS 2025] Official Implementation of DINO-Foresight: Looking into the Future with DINO https://github.com/Sta8is/DINO-Fo resight…",
+      "desc": "[NeurIPS 2025] Official Implementation of DINO-Foresight: Looking into the Future with DINO github.com/Sta8is/DINO-Fo… 7 64 522 33K * Ryohei Sasaki@engineer @rsasaki0109",
       "image": "",
       "media": {
         "type": "image",
@@ -13,16 +13,16 @@
         "poster": ""
       },
       "metrics": {
-        "likes": 525,
+        "likes": 522,
         "retweets": 64,
-        "impressions": 33373
+        "impressions": 33385
       }
     },
     {
       "url": "http://x.com/rsasaki0109/status/1858127195136229473",
       "date": "2024-11-17",
       "text": "AutoCarROS2 A virtual simulation platform for auton…",
-      "desc": "AutoCarROS2 A virtual simulation platform for autonomous vehicle sensing, mapping, control and behaviour methods using ROS 2 and Gazebo. https://github.com/winstxnhdw/Aut oCarROS2… Video 7",
+      "desc": "AutoCarROS2 A virtual simulation platform for autonomous vehicle sensing, mapping, control and behaviour methods using ROS 2 and Gazebo. github.com/winstxnhdw/Aut… Video 16 00:00 2 96 674 51K * Ryohei Sasaki@engineer @r…",
       "image": "",
       "media": {
         "type": "video",
@@ -34,14 +34,14 @@
       "metrics": {
         "likes": 674,
         "retweets": 96,
-        "impressions": 51400
+        "impressions": 51414
       }
     },
     {
       "url": "http://x.com/rsasaki0109/status/1817573476053524886",
       "date": "2024-07-28",
       "text": "ge-gnss-visibility GNSS satellite visibility simula…",
-      "desc": "ge-gnss-visibility GNSS satellite visibility simulation from Google Earth https://github.com/taroz/ge-gnss-visibility… Video 6",
+      "desc": "ge-gnss-visibility GNSS satellite visibility simulation from Google Earth github.com/taroz/ge-gnss-… Video 14 00:00 10 159 993 70K * Ryohei Sasaki@engineer @rsasaki0109",
       "image": "",
       "media": {
         "type": "video",
@@ -51,16 +51,16 @@
         "content_type": "video/mp4"
       },
       "metrics": {
-        "likes": 994,
+        "likes": 993,
         "retweets": 159,
-        "impressions": 69698
+        "impressions": 69709
       }
     },
     {
       "url": "http://x.com/rsasaki0109/status/1759780161262682294",
       "date": "2024-02-20",
       "text": "VisFusion: Visibility-aware Online 3D Scene Reconst…",
-      "desc": "VisFusion: Visibility-aware Online 3D Scene Reconstruction from Videos (CVPR 2023) https://github.com/huiyu-gao/VisF usion… Video 8",
+      "desc": "VisFusion: Visibility-aware Online 3D Scene Reconstruction from Videos (CVPR 2023) github.com/huiyu-gao/VisF… Video 18 00:00 3 76 414 49K * Ryohei Sasaki@engineer @rsasaki0109",
       "image": "",
       "media": {
         "type": "video",
@@ -70,9 +70,9 @@
         "content_type": "video/mp4"
       },
       "metrics": {
-        "likes": 417,
-        "retweets": 77,
-        "impressions": 48581
+        "likes": 414,
+        "retweets": 76,
+        "impressions": 48606
       }
     },
     {
@@ -89,16 +89,16 @@
         "content_type": "video/mp4"
       },
       "metrics": {
-        "likes": 864,
-        "retweets": 129,
-        "impressions": 102681
+        "likes": 861,
+        "retweets": 128,
+        "impressions": 102692
       }
     },
     {
       "url": "http://x.com/rsasaki0109/status/1660480739727798272",
       "date": "2023-05-22",
       "text": "MPCC Simulation environments in C++ and Matlab of t…",
-      "desc": "MPCC Simulation environments in C++ and Matlab of the Model Predictive Contouring Controller (MPCC) for Autonomous Racing developed by the Automatic Control Lab (IfA) at ETH Zurich https://github.com/alexliniger/MP CC…",
+      "desc": "MPCC Simulation environments in C++ and Matlab of the Model Predictive Contouring Controller (MPCC) for Autonomous Racing developed by the Automatic Control Lab (IfA) at ETH Zurich github.com/alexliniger/MP… Video 17 GI…",
       "image": "",
       "media": {
         "type": "gif",
@@ -108,9 +108,9 @@
         "content_type": "video/mp4"
       },
       "metrics": {
-        "likes": 621,
-        "retweets": 117,
-        "impressions": 47125
+        "likes": 618,
+        "retweets": 116,
+        "impressions": 47143
       }
     }
   ]
