@@ -5,6 +5,7 @@
 - 主要リンク: X（旧Twitter）/ GitHub
 - CloudAnalyzer のブラウザデモは `/cloudanalyzer/` に同梱（トップからの強い導線は置いていない）
 - GitHub profile README の `Featured Repositories` を preview 画像/GIFつきで掲載
+- AI Flow Builder など最近の TypeScript/Web 実装も掲載
 - GitHub API からプロフィール統計と各リポジトリの補足情報を取得
 - X の人気投稿を公開キャッシュから表示
 - モバイル対応の1ページ構成（日本語 / 英語）

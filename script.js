@@ -197,6 +197,19 @@ document.addEventListener("DOMContentLoaded", () => {
       fallbackLanguage: "C++",
     },
     {
+      name: "ai-flow-builder",
+      category: "active",
+      description: {
+        ja: "Flow IRを中心に、手動編集、実行、AI生成、TypeScriptコード生成へ進めるWebファーストのVisual Programming Platformです。",
+        en: "A Flow IR-first visual programming platform for manual editing, execution, AI-assisted flow planning, and deterministic TypeScript generation.",
+      },
+      tags: ["TypeScript", "Next.js", "React Flow"],
+      preview: "assets/ai-flow-builder-preview.svg",
+      previewAlt: "AI Flow Builder editor preview",
+      fallbackStars: 0,
+      fallbackLanguage: "TypeScript",
+    },
+    {
       name: "dynamic-3d-object-removal",
       category: "active",
       description: {
