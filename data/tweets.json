@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-07-15T05:21:45Z",
+  "updated_at": "2026-07-17T05:32:10Z",
   "items": [
     {
       "url": "http://x.com/rsasaki0109/status/1971756431117635694",
       "date": "2025-09-27",
       "text": "[NeurIPS 2025] Official Implementation of DINO-Fore…",
-      "desc": "[NeurIPS 2025] Official Implementation of DINO-Foresight: Looking into the Future with DINO github.com/Sta8is/DINO-Fo… 7 7 6 4 64 5 2 3 523 3 3 K 33K * Ryohei Sasaki@engineer @rsasaki0109",
+      "desc": "[NeurIPS 2025] Official Implementation of DINO-Foresight: Looking into the Future with DINO github.com/Sta8is/DINO-Fo… 7 64 522 33K * Ryohei Sasaki@engineer @rsasaki0109",
       "image": "",
       "media": {
         "type": "image",
@@ -15,14 +15,14 @@
       "metrics": {
         "likes": 522,
         "retweets": 64,
-        "impressions": 33441
+        "impressions": 33442
       }
     },
     {
       "url": "http://x.com/rsasaki0109/status/1858127195136229473",
       "date": "2024-11-17",
       "text": "AutoCarROS2 A virtual simulation platform for auton…",
-      "desc": "AutoCarROS2 A virtual simulation platform for autonomous vehicle sensing, mapping, control and behaviour methods using ROS 2 and Gazebo. github.com/winstxnhdw/Aut… Video 16 00:00 2 2 9 5 95 6 7 2 672 5 1 K 51K * Ryohei…",
+      "desc": "AutoCarROS2 A virtual simulation platform for autonomous vehicle sensing, mapping, control and behaviour methods using ROS 2 and Gazebo. github.com/winstxnhdw/Aut… Video 16 00:00 2 96 673 51K * Ryohei Sasaki@engineer @r…",
       "image": "",
       "media": {
         "type": "video",
@@ -41,7 +41,7 @@
       "url": "http://x.com/rsasaki0109/status/1817573476053524886",
       "date": "2024-07-28",
       "text": "ge-gnss-visibility GNSS satellite visibility simula…",
-      "desc": "ge-gnss-visibility GNSS satellite visibility simulation from Google Earth github.com/taroz/ge-gnss-… Video 14 00:00 1 0 10 1 5 8 158 9 8 9 989 7 0 K 70K * Ryohei Sasaki@engineer @rsasaki0109",
+      "desc": "ge-gnss-visibility GNSS satellite visibility simulation from Google Earth github.com/taroz/ge-gnss-… Video 14 00:00 10 158 986 70K * Ryohei Sasaki@engineer @rsasaki0109",
       "image": "",
       "media": {
         "type": "video",
@@ -51,16 +51,16 @@
         "content_type": "video/mp4"
       },
       "metrics": {
-        "likes": 989,
+        "likes": 986,
         "retweets": 158,
-        "impressions": 69732
+        "impressions": 69737
       }
     },
     {
       "url": "http://x.com/rsasaki0109/status/1759780161262682294",
       "date": "2024-02-20",
       "text": "VisFusion: Visibility-aware Online 3D Scene Reconst…",
-      "desc": "VisFusion: Visibility-aware Online 3D Scene Reconstruction from Videos (CVPR 2023) github.com/huiyu-gao/VisF… Video 18 00:00 3 3 7 6 76 4 1 4 414 4 9 K 49K * Ryohei Sasaki@engineer @rsasaki0109",
+      "desc": "VisFusion: Visibility-aware Online 3D Scene Reconstruction from Videos (CVPR 2023) github.com/huiyu-gao/VisF… Video 18 00:00 3 75 413 49K * Ryohei Sasaki@engineer @rsasaki0109",
       "image": "",
       "media": {
         "type": "video",
@@ -70,8 +70,8 @@
         "content_type": "video/mp4"
       },
       "metrics": {
-        "likes": 414,
-        "retweets": 76,
+        "likes": 413,
+        "retweets": 75,
         "impressions": 48654
       }
     },
@@ -91,7 +91,7 @@
       "metrics": {
         "likes": 860,
         "retweets": 127,
-        "impressions": 102744
+        "impressions": 102754
       }
     },
     {
@@ -108,9 +108,9 @@
         "content_type": "video/mp4"
       },
       "metrics": {
-        "likes": 618,
+        "likes": 617,
         "retweets": 116,
-        "impressions": 47158
+        "impressions": 47159
       }
     }
   ]
