@@ -31,3 +31,15 @@ python3 -m http.server 8000
 - `/.github/workflows/update-tweets.yml` が毎日 03:00 UTC に `data/tweets.json` を更新します。
 - 更新は `r.jina.ai` 経由で `x.com/rsasaki0109` のページを取得して簡易パースします。
 - GitHub Actions が失敗した場合は、既存の `data/tweets.json` を維持します。
+
+## lidar_slamの旧ドキュメントURL
+
+検索結果や既存リンクに残る `/lidar_slam_ros2/` 配下のドキュメントを、改名後の `/lidar_slam/` へ案内する互換HTMLを配信します。対応パスは `data/lidar-slam-legacy-routes.json` で管理し、公開前に生成します。GitHubリポジトリそのものの旧名転送設定は変更しません。
+
+```bash
+python3 -m unittest discover -s tests -v
+python3 scripts/build_legacy_lidar_redirects.py
+python3 -m http.server 8000
+```
+
+生成された `lidar_slam_ros2/` はgit管理対象外です。JavaScript有効時はクエリ・フラグメントを保持して新URLへ移動し、無効時はmeta refreshと手動リンクを提供します。これは静的HTMLによる互換導線で、HTTP 301ではありません。検索エンジンの更新・評価の引き継ぎは保証しません。公開後は実際の旧URLを開いて確認してください。
