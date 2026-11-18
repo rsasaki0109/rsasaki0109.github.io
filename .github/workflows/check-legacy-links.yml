@@ -2,6 +2,7 @@ name: Check legacy documentation links
 on:
   pull_request:
     paths:
+      - 'lidar_slam_ros2/**'
       - 'data/lidar-slam-legacy-routes.json'
       - 'scripts/build_legacy_lidar_redirects.py'
       - 'tests/test_legacy_lidar_redirects.py'
@@ -16,3 +17,4 @@ jobs:
       - uses: actions/checkout@v4
       - run: python3 -m unittest discover -s tests -v
       - run: python3 scripts/build_legacy_lidar_redirects.py
+      - run: git diff --exit-code -- lidar_slam_ros2/
