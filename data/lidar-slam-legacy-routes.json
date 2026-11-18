@@ -1,0 +1,19 @@
+{
+  "source_prefix": "lidar_slam_ros2",
+  "destination": "https://rsasaki0109.github.io/lidar_slam/",
+  "routes": [
+    "index.html",
+    "getting-started.html",
+    "getting-started-ja.html",
+    "comparison.html",
+    "readme-media.html",
+    "distribution.html",
+    "product-contract.html",
+    "graph-slam-architecture.html",
+    "graph-slam-parameters.html",
+    "real-data-e2e.html",
+    "degeneracy-guide.html",
+    "evidence/official-rko-binary-compatibility-2026-10-23.html",
+    "evidence/install-upgrade-2026-07-28.html"
+  ]
+}

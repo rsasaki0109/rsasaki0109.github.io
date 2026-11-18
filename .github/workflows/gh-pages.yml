@@ -20,6 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Build legacy documentation links
+        run: |
+          python3 -m unittest discover -s tests -v
+          python3 scripts/build_legacy_lidar_redirects.py
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
